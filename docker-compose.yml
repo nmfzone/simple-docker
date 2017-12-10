@@ -12,15 +12,15 @@ services:
             - ./docker/nginx/snippets:/etc/nginx/snippets
             - ./docker/nginx/fastcgi.conf:/etc/nginx/fastcgi.conf
         networks:
-            - code-network
+            - core-network
     php:
         image: php:fpm
 
         volumes:
             - ./code:/var/www/html
         networks:
-            - code-network
+            - core-network
 
 networks:
-    code-network:
+    core-network:
         driver: bridge
