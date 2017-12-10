@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+    web:
+        image: nginx:latest
+        ports:
+            - 8080:80
+        volumes:
+            - ./code:/var/www/html
+            - ./docker/nginx/logs:/var/log/nginx
+            - ./docker/nginx/sites/default:/etc/nginx/conf.d/default.conf
+            - ./docker/nginx/snippets:/etc/nginx/snippets
+            - ./docker/nginx/fastcgi.conf:/etc/nginx/fastcgi.conf
+        networks:
+            - code-network
+    php:
+        image: php:fpm
+
+        volumes:
+            - ./code:/var/www/html
+        networks:
+            - code-network
+
+networks:
+    code-network:
+        driver: bridge
